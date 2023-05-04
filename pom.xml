@@ -33,6 +33,12 @@
       <artifactId>telegrambots-meta</artifactId>
       <version>6.5.0</version>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.telegram/telegrambotsextensions -->
+    <dependency>
+      <groupId>org.telegram</groupId>
+      <artifactId>telegrambotsextensions</artifactId>
+      <version>6.5.0</version>
+    </dependency>
     <!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
     <dependency>
       <groupId>org.mockito</groupId>

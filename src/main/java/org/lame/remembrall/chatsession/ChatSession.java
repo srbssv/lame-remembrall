@@ -4,7 +4,7 @@ import org.lame.remembrall.State;
 
 import java.time.LocalDateTime;
 
-public interface IChatSession {
+public interface ChatSession {
     boolean exists(String chatId);
 
     void add(String chatId);

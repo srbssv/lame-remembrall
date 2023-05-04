@@ -1,31 +1,33 @@
 package org.lame.remembrall;
 
-import org.lame.remembrall.handlers.AnyMessageHandler;
-import org.lame.remembrall.handlers.commands.RemindMeCommandHandler;
-import org.lame.remembrall.handlers.commands.StartCommandHandler;
 import org.lame.remembrall.chatsession.MemoryChatSession;
+import org.lame.remembrall.commands.RemindMeBotCommand;
+import org.lame.remembrall.commands.StartBotCommand;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
-public class App
-{
+public class App {
     private static MemoryChatSession chatSession;
-    public static HandlerRegistry handlerRegistry;
-    public static void addHandlers(HandlerRegistry handlerRegistry) {
-        handlerRegistry.addCommandHandlers(
-                new StartCommandHandler(chatSession, "/start"),
-                new RemindMeCommandHandler(chatSession, "/remind_me")
-        );
-        handlerRegistry.addMessageHandlers(new AnyMessageHandler(chatSession, handlerRegistry));
+    private static Bot bot;
+    private static Config config;
+
+    private static void createBot() {
+        bot = new Bot(config, chatSession);
     }
 
-    public static void main( String[] args ) {
-        Config config = new Config();
-        handlerRegistry = new HandlerRegistry();
+    private static void createCommands() {
+        bot.registerAll(
+                new StartBotCommand("start", "", chatSession),
+                new RemindMeBotCommand("remind_me", "", chatSession)
+        );
+    }
+
+    public static void main(String[] args) {
+        config = new Config();
         chatSession = new MemoryChatSession();
-        addHandlers(handlerRegistry);
-        Bot bot = new Bot(config.apiKey, handlerRegistry);
+        createBot();
+        createCommands();
         try {
             TelegramBotsApi api = new TelegramBotsApi(DefaultBotSession.class);
             api.registerBot(bot);
