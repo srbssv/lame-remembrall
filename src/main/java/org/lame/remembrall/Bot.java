@@ -2,6 +2,8 @@ package org.lame.remembrall;
 
 import org.lame.remembrall.chatsession.ChatSession;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.extensions.bots.commandbot.TelegramLongPollingCommandBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Chat;
@@ -16,14 +18,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 
+@Component
 public class Bot extends TelegramLongPollingCommandBot {
+    @Autowired
     private Config config;
+    @Autowired
     private ChatSession chatSession;
 
     public Bot(Config config, ChatSession chatSession) {
         super();
-        this.config = config;
-        this.chatSession = chatSession;
     }
 
     @Override

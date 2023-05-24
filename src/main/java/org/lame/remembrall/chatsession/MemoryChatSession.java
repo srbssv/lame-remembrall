@@ -1,10 +1,11 @@
 package org.lame.remembrall.chatsession;
 
 import org.lame.remembrall.State;
-
+import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
+@Component
 public final class MemoryChatSession implements ChatSession {
     private HashMap<String, State> chatStates;
     private HashMap<String, String> chatReminders;
